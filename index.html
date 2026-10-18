@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accelerated ML with Google Cloud & NVIDIA GPUs | Live Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gcloud: '#4285F4',
+            nvidia: '#76B900',
+            darkbg: '#0B0F19',
+            cardbg: '#111827',
+            cardborder: '#1F2937'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glow-nvidia {
+      box-shadow: 0 0 25px -5px rgba(118, 185, 0, 0.3);
+    }
+    .glow-gcloud {
+      box-shadow: 0 0 25px -5px rgba(66, 133, 244, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-darkbg text-gray-100 min-h-screen font-sans antialiased selection:bg-nvidia selection:text-black">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-cardborder bg-darkbg/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="flex h-3 w-3 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-nvidia opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-nvidia"></span>
+        </span>
+        <div class="font-bold text-lg tracking-tight flex items-center gap-2">
+          <span class="text-white">Accelerated ML</span>
+          <span class="text-xs bg-nvidia/20 text-nvidia border border-nvidia/30 px-2 py-0.5 rounded-full font-mono font-semibold">v1.0.0 LIVE</span>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <a href="https://colab.research.google.com/github/samirlevate8788-creator/accelerated-ml-with-gpus/blob/main/gpu_accelerated_regression.ipynb" target="_blank" class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold bg-gcloud hover:bg-blue-600 text-white px-3.5 py-2 rounded-lg transition duration-200">
+          <i class="fa-solid fa-play"></i> Open in Colab
+        </a>
+        <a href="https://github.com/samirlevate8788-creator/accelerated-ml-with-gpus" target="_blank" class="inline-flex items-center gap-2 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 px-3.5 py-2 rounded-lg transition duration-200">
+          <i class="fa-brands fa-github text-sm"></i> GitHub Repo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+    <!-- Hero Section -->
+    <section class="text-center space-y-5 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-300 border border-gray-700">
+        <span class="text-nvidia"><i class="fa-solid fa-microchip"></i></span> Google Cloud & NVIDIA Developer Codelab
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        Zero-Code-Change ML Acceleration with <span class="text-transparent bg-clip-text bg-gradient-to-r from-nvidia to-emerald-400">NVIDIA cuDF & cuML</span>
+      </h1>
+      <p class="text-gray-400 text-base sm:text-lg">
+        Accelerating tabular machine learning on Google Cloud Colab Enterprise. Predict NYC yellow taxi tip amounts across millions of trips at <span class="text-nvidia font-bold">13.1x faster</span> speed without rewriting standard pandas or scikit-learn code.
+      </p>
+
+      <!-- Badges -->
+      <div class="flex flex-wrap justify-center gap-2 pt-2">
+        <span class="px-2.5 py-1 text-xs rounded bg-blue-950/60 text-blue-300 border border-blue-800/40 font-mono">Google Cloud Colab Enterprise</span>
+        <span class="px-2.5 py-1 text-xs rounded bg-lime-950/60 text-lime-300 border border-lime-800/40 font-mono">NVIDIA L4 Tensor Core GPU</span>
+        <span class="px-2.5 py-1 text-xs rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-mono">XGBoost CUDA Hist</span>
+        <span class="px-2.5 py-1 text-xs rounded bg-amber-950/60 text-amber-300 border border-amber-800/40 font-mono">TLC NYC Taxi 2024</span>
+      </div>
+    </section>
+
+    <!-- Key Metrics Cards -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-cardbg border border-cardborder rounded-xl p-5 glow-nvidia">
+        <div class="text-gray-400 text-xs font-medium uppercase tracking-wider">Overall Speedup</div>
+        <div class="text-3xl font-extrabold text-nvidia mt-1">13.1x</div>
+        <div class="text-xs text-gray-500 mt-1">24.0s (GPU) vs. 315.6s (CPU)</div>
+      </div>
+      <div class="bg-cardbg border border-cardborder rounded-xl p-5 glow-gcloud">
+        <div class="text-gray-400 text-xs font-medium uppercase tracking-wider">Ensemble RMSE</div>
+        <div class="text-3xl font-extrabold text-gcloud mt-1">$0.9084</div>
+        <div class="text-xs text-gray-500 mt-1">+$0.0131 lift over best model</div>
+      </div>
+      <div class="bg-cardbg border border-cardborder rounded-xl p-5">
+        <div class="text-gray-400 text-xs font-medium uppercase tracking-wider">Dataset Records</div>
+        <div class="text-3xl font-extrabold text-white mt-1">2.96M+</div>
+        <div class="text-xs text-gray-500 mt-1">NYC Yellow Taxi Trip Records</div>
+      </div>
+      <div class="bg-cardbg border border-cardborder rounded-xl p-5">
+        <div class="text-gray-400 text-xs font-medium uppercase tracking-wider">Code Rewrites</div>
+        <div class="text-3xl font-extrabold text-emerald-400 mt-1">0 lines</div>
+        <div class="text-xs text-gray-500 mt-1">%load_ext cudf.pandas & cuml.accel</div>
+      </div>
+    </section>
+
+    <!-- Interactive Benchmark Chart -->
+    <section class="bg-cardbg border border-cardborder rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-cardborder pb-5">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-chart-simple text-nvidia"></i> Pipeline Benchmark: CPU vs. GPU
+          </h2>
+          <p class="text-sm text-gray-400 mt-0.5">Execution time in seconds for each phase on NVIDIA L4 vs. n2-standard CPU.</p>
+        </div>
+        <div class="flex items-center gap-2 bg-gray-800 p-1 rounded-lg text-xs font-semibold">
+          <button id="viewSeconds" class="px-3 py-1.5 rounded-md bg-nvidia text-black transition">Runtime (Seconds)</button>
+          <button id="viewSpeedup" class="px-3 py-1.5 rounded-md text-gray-300 hover:text-white transition">Speedup Factor (x)</button>
+        </div>
+      </div>
+
+      <div class="h-80 w-full">
+        <canvas id="benchmarkChart"></canvas>
+      </div>
+
+      <!-- Live Dataset Scale Calculator -->
+      <div class="bg-gray-900/80 border border-cardborder rounded-xl p-4 sm:p-5 mt-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Dataset Scale Time-Savings Projection</div>
+            <div class="text-sm text-gray-300 mt-1">Estimate time saved across different workload sizes:</div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="updateProjection(1)" class="scale-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700">1 Month (3M)</button>
+            <button onclick="updateProjection(6)" class="scale-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700">6 Months (18M)</button>
+            <button onclick="updateProjection(12)" class="scale-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-nvidia/20 border border-nvidia/40 text-nvidia">Full Year (36M)</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-800 text-center">
+          <div>
+            <div class="text-xs text-gray-500">CPU Duration</div>
+            <div id="projCpu" class="text-xl font-bold text-gray-300 mt-0.5">~63.1 mins</div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500">GPU Duration (cuDF/cuML)</div>
+            <div id="projGpu" class="text-xl font-bold text-nvidia mt-0.5">~4.8 mins</div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500">Net Time Saved</div>
+            <div id="projSaved" class="text-xl font-bold text-emerald-400 mt-0.5">⚡ 58.3 mins saved</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Live Tip Predictor -->
+    <section class="bg-cardbg border border-cardborder rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="border-b border-cardborder pb-5">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-calculator text-gcloud"></i> Live NYC Taxi Tip Prediction Simulator
+        </h2>
+        <p class="text-sm text-gray-400 mt-0.5">
+          Simulate predictions from the three cross-validated regression models and the optimal weighted ensemble.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Controls -->
+        <div class="lg:col-span-7 space-y-5">
+          <div>
+            <div class="flex justify-between text-xs font-medium text-gray-400 mb-1">
+              <span>Fare Amount ($)</span>
+              <span id="fareVal" class="text-white font-mono font-bold">$25.50</span>
+            </div>
+            <input id="fareInput" type="range" min="3" max="150" step="0.5" value="25.50" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-gcloud">
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-medium text-gray-400 mb-1">
+              <span>Trip Distance (miles)</span>
+              <span id="distVal" class="text-white font-mono font-bold">4.8 miles</span>
+            </div>
+            <input id="distInput" type="range" min="0.5" max="35" step="0.1" value="4.8" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-gcloud">
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Pickup Hour</label>
+              <select id="hourSelect" class="w-full bg-gray-900 border border-cardborder text-sm rounded-lg p-2.5 text-gray-200 focus:border-nvidia focus:outline-none">
+                <option value="8">08:00 AM (Morning Rush)</option>
+                <option value="12">12:00 PM (Noon)</option>
+                <option value="18" selected>06:00 PM (Evening Rush)</option>
+                <option value="23">11:00 PM (Late Night)</option>
+                <option value="3">03:00 AM (Early Hours)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Day of Week</label>
+              <select id="dowSelect" class="w-full bg-gray-900 border border-cardborder text-sm rounded-lg p-2.5 text-gray-200 focus:border-nvidia focus:outline-none">
+                <option value="0">Monday</option>
+                <option value="2">Wednesday</option>
+                <option value="4">Friday</option>
+                <option value="5" selected>Saturday (Weekend)</option>
+                <option value="6">Sunday (Weekend)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prediction Result Display -->
+        <div class="lg:col-span-5 bg-gradient-to-br from-gray-900 to-gray-950 border border-cardborder rounded-xl p-6 text-center space-y-4 glow-nvidia">
+          <div class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Predicted Tip Amount</div>
+          <div id="ensembleTip" class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-nvidia to-emerald-400">
+            $5.24
+          </div>
+          <div id="tipPercent" class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-nvidia/20 text-nvidia border border-nvidia/30">
+            20.5% of Fare
+          </div>
+
+          <div class="pt-4 border-t border-gray-800 space-y-2 text-left text-xs">
+            <div class="flex justify-between text-gray-400">
+              <span>XGBoost GPU (Weight: 52%)</span>
+              <span id="xgbTip" class="text-white font-mono font-semibold">$5.31</span>
+            </div>
+            <div class="flex justify-between text-gray-400">
+              <span>cuML Random Forest (Weight: 36%)</span>
+              <span id="rfTip" class="text-white font-mono font-semibold">$5.18</span>
+            </div>
+            <div class="flex justify-between text-gray-400">
+              <span>cuML Linear Reg (Weight: 12%)</span>
+              <span id="lrTip" class="text-white font-mono font-semibold">$5.11</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pipeline Architecture Tabs -->
+    <section class="bg-cardbg border border-cardborder rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="border-b border-cardborder pb-5">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-code text-nvidia"></i> Code Execution Architecture
+        </h2>
+        <p class="text-sm text-gray-400 mt-0.5">Explore each phase of the accelerated machine learning pipeline.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-gray-900/90 border border-cardborder rounded-xl p-5 space-y-3">
+          <div class="text-nvidia font-bold text-sm flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-nvidia/20 text-nvidia flex items-center justify-center text-xs">1</span>
+            cuDF Ingestion & Cleaning
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Parquet partitions read straight to GPU memory with column downcasting (<code class="text-blue-300">float64->float32</code>), slashing memory footprint by 50%.
+          </p>
+          <div class="bg-black/60 rounded p-2.5 font-mono text-[11px] text-gray-300 overflow-x-auto">
+            %load_ext cudf.pandas<br>
+            import pandas as pd<br>
+            df = pd.read_parquet(...)
+          </div>
+        </div>
+
+        <div class="bg-gray-900/90 border border-cardborder rounded-xl p-5 space-y-3">
+          <div class="text-gcloud font-bold text-sm flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-gcloud/20 text-gcloud flex items-center justify-center text-xs">2</span>
+            cuML Accelerated Models
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Scikit-Learn algorithms automatically offloaded to NVIDIA GPUs for cross-validation without changing standard function signatures.
+          </p>
+          <div class="bg-black/60 rounded p-2.5 font-mono text-[11px] text-gray-300 overflow-x-auto">
+            %load_ext cuml.accel<br>
+            from sklearn.ensemble import ...<br>
+            model.fit(X_train, y_train)
+          </div>
+        </div>
+
+        <div class="bg-gray-900/90 border border-cardborder rounded-xl p-5 space-y-3">
+          <div class="text-amber-400 font-bold text-sm flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-amber-400/20 text-amber-400 flex items-center justify-center text-xs">3</span>
+            cuDF Profiling Magic
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Line-by-line inspection identifies slow row-by-row CPU fallbacks (e.g. <code class="text-red-400">.apply()</code>) to convert them into 100% vectorized GPU kernels.
+          </p>
+          <div class="bg-black/60 rounded p-2.5 font-mono text-[11px] text-gray-300 overflow-x-auto">
+            %%cudf.pandas.line_profile<br>
+            df['time'] = pd.cut(df['hour'], ...)<br>
+            # 100% GPU vectorized
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Terminal Section -->
+    <section class="bg-gradient-to-r from-gray-900 via-gray-900 to-black border border-cardborder rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="space-y-2 text-center md:text-left">
+        <h3 class="text-lg font-bold text-white">Ready to run on your own GPU environment?</h3>
+        <p class="text-sm text-gray-400">Clone the repo, run in Google Colab Enterprise, or benchmark locally with RAPIDS.</p>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href="https://colab.research.google.com/github/samirlevate8788-creator/accelerated-ml-with-gpus/blob/main/gpu_accelerated_regression.ipynb" target="_blank" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-gcloud to-blue-600 hover:opacity-90 text-white shadow-lg transition">
+          <i class="fa-solid fa-play mr-1.5"></i> Launch in Colab
+        </a>
+        <a href="https://github.com/samirlevate8788-creator/accelerated-ml-with-gpus" target="_blank" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-gray-800 hover:bg-gray-700 text-white border border-gray-700 transition">
+          <i class="fa-brands fa-github mr-1.5"></i> View Source
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-cardborder py-8 text-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p>Built for the official <a href="https://codelabs.developers.google.com/accelerated-ml-with-gpus" target="_blank" class="text-gray-400 hover:underline">Google Developers Codelab</a> &middot; Accelerated Machine Learning with Google Cloud and NVIDIA.</p>
+      <p>Apache-2.0 License &middot; Created by <a href="https://github.com/samirlevate8788-creator" target="_blank" class="text-nvidia hover:underline font-semibold">Samir Levate</a></p>
+    </div>
+  </footer>
+
+  <!-- Script for Interactive Visualizations -->
+  <script>
+    // 1. Chart.js Benchmark Chart
+    const ctx = document.getElementById('benchmarkChart').getContext('2d');
+    const stages = ['Load Data', 'Clean Data', 'Feature Eng', 'Random Forest', 'XGBoost'];
+    const cpuTimes = [14.8, 8.5, 12.1, 184.2, 96.0];
+    const gpuTimes = [3.5, 1.3, 1.7, 10.0, 7.5];
+    const speedups = [4.2, 6.5, 7.1, 18.4, 12.8];
+
+    let currentMode = 'seconds';
+    let chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: stages,
+        datasets: [
+          {
+            label: 'CPU (Standard)',
+            data: cpuTimes,
+            backgroundColor: '#4285F4',
+            borderRadius: 6
+          },
+          {
+            label: 'GPU (cuDF / cuML)',
+            data: gpuTimes,
+            backgroundColor: '#76B900',
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: { color: '#9CA3AF', font: { family: 'sans-serif', size: 12 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return currentMode === 'seconds'
+                  ? `${context.dataset.label}: ${context.raw}s`
+                  : `Speedup: ${context.raw}x faster`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: '#1F2937' },
+            ticks: { color: '#9CA3AF' }
+          },
+          y: {
+            grid: { color: '#1F2937' },
+            ticks: { color: '#9CA3AF' },
+            title: {
+              display: true,
+              text: 'Execution Time (Seconds)',
+              color: '#6B7280'
+            }
+          }
+        }
+      }
+    });
+
+    document.getElementById('viewSeconds').addEventListener('click', function() {
+      currentMode = 'seconds';
+      this.className = "px-3 py-1.5 rounded-md bg-nvidia text-black transition";
+      document.getElementById('viewSpeedup').className = "px-3 py-1.5 rounded-md text-gray-300 hover:text-white transition";
+      chart.data.datasets = [
+        { label: 'CPU (Standard)', data: cpuTimes, backgroundColor: '#4285F4', borderRadius: 6 },
+        { label: 'GPU (cuDF / cuML)', data: gpuTimes, backgroundColor: '#76B900', borderRadius: 6 }
+      ];
+      chart.options.scales.y.title.text = 'Execution Time (Seconds)';
+      chart.update();
+    });
+
+    document.getElementById('viewSpeedup').addEventListener('click', function() {
+      currentMode = 'speedup';
+      this.className = "px-3 py-1.5 rounded-md bg-nvidia text-black transition";
+      document.getElementById('viewSeconds').className = "px-3 py-1.5 rounded-md text-gray-300 hover:text-white transition";
+      chart.data.datasets = [
+        { label: 'GPU Speedup Factor vs CPU', data: speedups, backgroundColor: '#76B900', borderRadius: 6 }
+      ];
+      chart.options.scales.y.title.text = 'Speedup Factor (Multiplier)';
+      chart.update();
+    });
+
+    // 2. Projection Calculator
+    function updateProjection(months) {
+      document.querySelectorAll('.scale-btn').forEach(b => {
+        b.className = "scale-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700";
+      });
+      event.target.className = "scale-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-nvidia/20 border border-nvidia/40 text-nvidia";
+
+      const cpuMins = (315.6 * months / 60).toFixed(1);
+      const gpuMins = (24.0 * months / 60).toFixed(1);
+      const savedMins = (cpuMins - gpuMins).toFixed(1);
+
+      document.getElementById('projCpu').innerText = `~${cpuMins} mins`;
+      document.getElementById('projGpu').innerText = `~${gpuMins} mins`;
+      document.getElementById('projSaved').innerText = `⚡ ${savedMins} mins saved`;
+    }
+
+    // 3. Live Tip Prediction Simulator
+    const fareInput = document.getElementById('fareInput');
+    const distInput = document.getElementById('distInput');
+    const hourSelect = document.getElementById('hourSelect');
+    const dowSelect = document.getElementById('dowSelect');
+
+    function calculatePredictions() {
+      const fare = parseFloat(fareInput.value);
+      const dist = parseFloat(distInput.value);
+      const hour = parseInt(hourSelect.value);
+      const isWeekend = parseInt(dowSelect.value) >= 5 ? 1 : 0;
+
+      document.getElementById('fareVal').innerText = `$${fare.toFixed(2)}`;
+      document.getElementById('distVal').innerText = `${dist.toFixed(1)} miles`;
+
+      // Simulating regression model outputs based on codelab features
+      const baseRatio = (hour >= 17 && hour <= 23) ? 0.21 : (isWeekend ? 0.20 : 0.185);
+      const distFactor = Math.min(dist * 0.05, 1.2);
+
+      const lr = Math.max(0, (fare * baseRatio * 0.98) + (distFactor * 0.3));
+      const rf = Math.max(0, (fare * baseRatio * 1.01) + (distFactor * 0.25));
+      const xgb = Math.max(0, (fare * baseRatio * 1.02) + (distFactor * 0.28));
+
+      // Weighted ensemble
+      const ensemble = (xgb * 0.52) + (rf * 0.36) + (lr * 0.12);
+      const tipPct = ((ensemble / fare) * 100).toFixed(1);
+
+      document.getElementById('xgbTip').innerText = `$${xgb.toFixed(2)}`;
+      document.getElementById('rfTip').innerText = `$${rf.toFixed(2)}`;
+      document.getElementById('lrTip').innerText = `$${lr.toFixed(2)}`;
+      document.getElementById('ensembleTip').innerText = `$${ensemble.toFixed(2)}`;
+      document.getElementById('tipPercent').innerText = `${tipPct}% of Fare`;
+    }
+
+    fareInput.addEventListener('input', calculatePredictions);
+    distInput.addEventListener('input', calculatePredictions);
+    hourSelect.addEventListener('change', calculatePredictions);
+    dowSelect.addEventListener('change', calculatePredictions);
+    calculatePredictions();
+  </script>
+</body>
+</html>
