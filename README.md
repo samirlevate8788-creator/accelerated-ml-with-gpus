@@ -98,6 +98,10 @@ Trained using 3-fold cross-validation on NYC Taxi records:
 
 Representative performance across full pipeline stages (measured on Google Cloud NVIDIA L4 GPU vs. n2-standard CPU):
 
+<p align="center">
+  <img src="assets/benchmark_speedup.svg" alt="NYC Taxi ML Pipeline Benchmark: CPU vs GPU Performance Speedup" width="850">
+</p>
+
 | Pipeline Stage | CPU Runtime | GPU Runtime (cuDF / cuML) | Speedup Factor |
 | :--- | :---: | :---: | :---: |
 | **1. Data Ingestion (Parquet)** | 14.8s | 3.5s | **4.2x** |
@@ -129,11 +133,14 @@ df['time_of_day_fast'] = pd.cut(df['hour'], bins=[-1, 11, 24], labels=['Morning'
 
 ```
 accelerated-ml-with-gpus/
-├── gpu_accelerated_regression.ipynb   # Complete interactive Jupyter notebook
+├── assets/
+│   └── benchmark_speedup.svg          # Visual performance comparison chart
+├── gpu_accelerated_regression.ipynb   # Complete interactive Jupyter notebook with outputs
 ├── pipeline.py                        # Modular end-to-end training pipeline
 ├── benchmark.py                       # CPU vs. GPU benchmark comparison script
 ├── profiling_demo.py                  # cuDF profiling & CPU fallback optimization demo
 ├── requirements.txt                   # Dependency definitions
+├── LICENSE                            # Apache 2.0 License
 ├── .gitignore                         # Data, caches, and checkpoints exclusion
 └── README.md                          # Project documentation and guide
 ```

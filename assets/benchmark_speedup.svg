@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cpuGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a95f5"/>
+      <stop offset="100%" stop-color="#4285F4"/>
+    </linearGradient>
+    <linearGradient id="gpuGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8fd31a"/>
+      <stop offset="100%" stop-color="#76B900"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="500" rx="12" fill="#0d1117"/>
+  <rect x="2" y="2" width="896" height="496" rx="10" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="450" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    NYC Taxi ML Pipeline: CPU vs. GPU Performance Comparison
+  </text>
+  <text x="450" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">
+    Google Cloud Colab Enterprise (NVIDIA L4 GPU) vs. n2-standard CPU
+  </text>
+
+  <!-- Legend -->
+  <g transform="translate(680, 40)">
+    <rect x="0" y="0" width="14" height="14" rx="3" fill="#4285F4"/>
+    <text x="20" y="12" font-family="sans-serif" font-size="12" fill="#c9d1d9">CPU (Standard)</text>
+    <rect x="0" y="22" width="14" height="14" rx="3" fill="#76B900"/>
+    <text x="20" y="34" font-family="sans-serif" font-size="12" fill="#c9d1d9">GPU (cuDF / cuML)</text>
+  </g>
+
+  <!-- Grid lines -->
+  <line x1="80" y1="120" x2="840" y2="120" stroke="#21262d" stroke-width="1" stroke-dasharray="4"/>
+  <text x="70" y="124" font-family="monospace" font-size="10" fill="#6e7681" text-anchor="end">200s</text>
+
+  <line x1="80" y1="190" x2="840" y2="190" stroke="#21262d" stroke-width="1" stroke-dasharray="4"/>
+  <text x="70" y="194" font-family="monospace" font-size="10" fill="#6e7681" text-anchor="end">150s</text>
+
+  <line x1="80" y1="260" x2="840" y2="260" stroke="#21262d" stroke-width="1" stroke-dasharray="4"/>
+  <text x="70" y="264" font-family="monospace" font-size="10" fill="#6e7681" text-anchor="end">100s</text>
+
+  <line x1="80" y1="330" x2="840" y2="330" stroke="#21262d" stroke-width="1" stroke-dasharray="4"/>
+  <text x="70" y="334" font-family="monospace" font-size="10" fill="#6e7681" text-anchor="end">50s</text>
+
+  <line x1="80" y1="400" x2="840" y2="400" stroke="#30363d" stroke-width="1.5"/>
+  <text x="70" y="404" font-family="monospace" font-size="10" fill="#6e7681" text-anchor="end">0s</text>
+
+  <!-- Category 1: Load Data -->
+  <!-- Max height for 200s is 280px (from y=400 to y=120) -> 1.4 px/s -->
+  <!-- 14.8s = 20.7px, 3.5s = 4.9px -->
+  <g transform="translate(110, 0)">
+    <rect x="0" y="379.3" width="36" height="20.7" rx="3" fill="url(#cpuGrad)" filter="url(#shadow)"/>
+    <text x="18" y="372" font-family="monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">14.8s</text>
+    <rect x="42" y="395.1" width="36" height="4.9" rx="3" fill="url(#gpuGrad)" filter="url(#shadow)"/>
+    <text x="60" y="390" font-family="monospace" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">3.5s</text>
+    <text x="39" y="425" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Load Data</text>
+    <text x="39" y="445" font-family="sans-serif" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">4.2x Faster</text>
+  </g>
+
+  <!-- Category 2: Clean Data -->
+  <!-- 8.5s = 11.9px, 1.3s = 1.8px -->
+  <g transform="translate(255, 0)">
+    <rect x="0" y="388.1" width="36" height="11.9" rx="3" fill="url(#cpuGrad)" filter="url(#shadow)"/>
+    <text x="18" y="381" font-family="monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">8.5s</text>
+    <rect x="42" y="398.2" width="36" height="2" rx="1" fill="url(#gpuGrad)" filter="url(#shadow)"/>
+    <text x="60" y="392" font-family="monospace" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">1.3s</text>
+    <text x="39" y="425" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Clean Data</text>
+    <text x="39" y="445" font-family="sans-serif" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">6.5x Faster</text>
+  </g>
+
+  <!-- Category 3: Feature Eng -->
+  <!-- 12.1s = 16.9px, 1.7s = 2.4px -->
+  <g transform="translate(400, 0)">
+    <rect x="0" y="383.1" width="36" height="16.9" rx="3" fill="url(#cpuGrad)" filter="url(#shadow)"/>
+    <text x="18" y="376" font-family="monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">12.1s</text>
+    <rect x="42" y="397.6" width="36" height="2.4" rx="1" fill="url(#gpuGrad)" filter="url(#shadow)"/>
+    <text x="60" y="392" font-family="monospace" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">1.7s</text>
+    <text x="39" y="425" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Feature Eng</text>
+    <text x="39" y="445" font-family="sans-serif" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">7.1x Faster</text>
+  </g>
+
+  <!-- Category 4: Random Forest -->
+  <!-- 184.2s = 257.9px (y=142.1), 10.0s = 14.0px (y=386) -->
+  <g transform="translate(545, 0)">
+    <rect x="0" y="142.1" width="36" height="257.9" rx="3" fill="url(#cpuGrad)" filter="url(#shadow)"/>
+    <text x="18" y="134" font-family="monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">184.2s</text>
+    <rect x="42" y="386.0" width="36" height="14.0" rx="3" fill="url(#gpuGrad)" filter="url(#shadow)"/>
+    <text x="60" y="378" font-family="monospace" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">10.0s</text>
+    <text x="39" y="425" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Random Forest</text>
+    <text x="39" y="445" font-family="sans-serif" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">18.4x Faster</text>
+  </g>
+
+  <!-- Category 5: XGBoost -->
+  <!-- 96.0s = 134.4px (y=265.6), 7.5s = 10.5px (y=389.5) -->
+  <g transform="translate(690, 0)">
+    <rect x="0" y="265.6" width="36" height="134.4" rx="3" fill="url(#cpuGrad)" filter="url(#shadow)"/>
+    <text x="18" y="258" font-family="monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">96.0s</text>
+    <rect x="42" y="389.5" width="36" height="10.5" rx="3" fill="url(#gpuGrad)" filter="url(#shadow)"/>
+    <text x="60" y="382" font-family="monospace" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">7.5s</text>
+    <text x="39" y="425" font-family="sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">XGBoost</text>
+    <text x="39" y="445" font-family="sans-serif" font-size="10" fill="#76B900" font-weight="bold" text-anchor="middle">12.8x Faster</text>
+  </g>
+
+  <!-- Footer Banner -->
+  <rect x="80" y="468" width="740" height="24" rx="6" fill="#161b22"/>
+  <text x="450" y="484" font-family="sans-serif" font-size="11" fill="#58a6ff" font-weight="bold" text-anchor="middle">
+    ⚡ Total Pipeline Runtime: CPU = 315.6s | GPU = 24.0s (13.1x Overall Speedup)
+  </text>
+</svg>
