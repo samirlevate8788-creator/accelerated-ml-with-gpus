@@ -1,11 +1,16 @@
 # 🚀 Accelerated Machine Learning with Google Cloud and NVIDIA
 
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-GitHub%20Pages-success?logo=githubpages&logoColor=white)](https://samirlevate8788-creator.github.io/accelerated-ml-with-gpus/)
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/samirlevate8788-creator/accelerated-ml-with-gpus/blob/main/gpu_accelerated_regression.ipynb)
+[![GitHub Release](https://img.shields.io/github/v/release/samirlevate8788-creator/accelerated-ml-with-gpus?color=orange&logo=github)](https://github.com/samirlevate8788-creator/accelerated-ml-with-gpus/releases)
 [![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Colab%20Enterprise-4285F4?logo=googlecloud&logoColor=white)](https://cloud.google.com/colab/docs/introduction)
 [![NVIDIA RAPIDS](https://img.shields.io/badge/NVIDIA-RAPIDS%20(cuDF%20%26%20cuML)-76B900?logo=nvidia&logoColor=white)](https://rapids.ai/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-GPU%20Accelerated-EB5424)](https://xgboost.readthedocs.io/en/stable/gpu/index.html)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
+
+🌐 **Live Interactive Web Dashboard:** [https://samirlevate8788-creator.github.io/accelerated-ml-with-gpus/](https://samirlevate8788-creator.github.io/accelerated-ml-with-gpus/)  
+📦 **Release v1.0.0:** [GitHub Releases v1.0.0](https://github.com/samirlevate8788-creator/accelerated-ml-with-gpus/releases/tag/v1.0.0)
 
 Complete implementation, benchmarking, and profiling repository for the official Google Developers Codelab:
 👉 **[Accelerated Machine Learning with Google Cloud and NVIDIA](https://codelabs.developers.google.com/accelerated-ml-with-gpus)**  
