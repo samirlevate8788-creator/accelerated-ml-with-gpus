@@ -1,0 +1,24 @@
+# Requirements for Accelerated Machine Learning with Google Cloud and NVIDIA
+# In Colab Enterprise or environments with NVIDIA RAPIDS, cuDF and cuML are pre-installed.
+
+# Core Data Science
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+scipy>=1.10.0
+
+# GPU Machine Learning
+xgboost>=2.0.0
+
+# Data Loading & I/O
+pyarrow>=14.0.0
+fastparquet>=2023.10.0
+requests>=2.31.0
+tqdm>=4.66.0
+
+# Visualization & Profiling
+matplotlib>=3.8.0
+ipython>=8.15.0
+
+# Note: For full GPU acceleration on Linux/WSL2 with NVIDIA GPU:
+# pip install --extra-index-url=https://pypi.nvidia.com cudf-cu12 cuml-cu12
